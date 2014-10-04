@@ -1,0 +1,10 @@
+/_SQL
+/packages
+/MARS-website-publish
+/MARS-config/bin
+/MARS-config/obj
+/MARS-meet/bin
+/MARS-meet/obj
+/MARS-website/bin
+/MARS-website/obj
+/*.suo
