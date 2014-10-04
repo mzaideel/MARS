@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1badf8d6f703439b8bc77e89525010f0" Name="Diagram1">
+        <EntityTypeShape EntityType="MARS.Config.mars_CCombinedEvents" Width="2.25" PointX="10.625" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CEvents" Width="2.375" PointX="6.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CGroupEvents" Width="1.875" PointX="2.375" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CGroups" Width="1.875" PointX="2.375" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CRecordMarks" Width="2.25" PointX="6.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CRecords" Width="1.5" PointX="2.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Config.mars_CSubEvents" Width="2.375" PointX="6.625" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CCombinedEv__6497E884" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CCombinedEv__658C0CBD" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CSub__Event__68687968" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CGro__Group__668030F6" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CGroupEvent__6774552F" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CRec__Recor__5D4BCC77" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Config.FK__mars_CRecordMark__5E3FF0B0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

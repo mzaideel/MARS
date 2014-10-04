@@ -1,0 +1,49 @@
+﻿@model MARS.Web.Models.OneMeet
+
+@{
+    ViewBag.Title = "Team";
+}
+
+@{ Html.RenderPartial("~/Views/LiveBoard/_TeamMenu.cshtml", Model); }
+
+<p>&nbsp;</p>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Html.DisplayFor(model => model.CurrentTeam.Name)
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>BibNo</th>
+            <th></th>
+            <th>Result</th>
+            <th>Pos</th>
+            <th>Name</th>
+            <th>YOB</th>
+            <th>Event</th>
+            <th>Group</th>
+            <th>Day / time</th>
+        </tr>
+
+        @if (Model.CurrentTeam.Participants != null && Model.CurrentTeam.Participants.Count > 0)
+        {
+            foreach (var p in Model.CurrentTeam.Participants)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(_ => p.OrderNo)</td>
+                    <td>@Html.DisplayFor(_ => p.BibNo)</td>
+                    <td>@Html.DisplayFor(_ => p.Comment)</td>
+                    <td>@Html.DisplayFor(_ => p.ResultOutput)</td>
+                    <td>@Html.DisplayFor(_ => p.Position)</td>
+                    <td>@Html.DisplayFor(_ => p.Name)</td>
+                    <td>@Html.DisplayFor(_ => p.YOB)</td>
+                    <td>@Html.ActionLink(p.OneEvent.EventText2, "Event", new { meetId = Model.MeetId, eventId = p.OneEvent.Id, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay })</td>
+                    <td>@Html.DisplayFor(_ => p.OneEvent.GroupText)</td>
+                    <td>@Html.DisplayFor(_ => p.OneEvent.DayTime)</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

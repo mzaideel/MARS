@@ -1,0 +1,336 @@
+﻿@model MARS.Web.Models.OneMeet
+
+@{
+    ViewBag.Title = "Event";
+}
+
+@*@if (Model.ResultList != null && Model.ResultList.Heats != null && Model.ResultList.Heats.Count > 0 && Model.State.StartsWith("O"))
+    {
+        @section Scripts {
+            <script type="text/JavaScript">
+
+                function ReloadPage() {
+                    location.reload();
+                };
+
+                $(document).ready(function () {
+                    //alert("!!!");
+                    setTimeout("ReloadPage()", 60000);
+                });
+            </script>
+        }
+    }*@
+
+@{ Html.RenderPartial("~/Views/LiveBoard/_EventMenu.cshtml", Model); }
+
+<p>&nbsp;</p>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @Html.DisplayFor(model => model.Events.ElementAt(0).GroupText)
+        - @Html.DisplayFor(model => model.Events.ElementAt(0).EventText)
+
+        @if (Model.Events.ElementAt(0).RoundNo < Model.Events.ElementAt(0).NoOfRounds)
+        {
+            @: -
+            @Html.DisplayFor(modelItem => modelItem.Events.ElementAt(0).RoundText)
+        }
+
+        - Day @Html.DisplayFor(model => model.Events.ElementAt(0).Day) at @Html.DisplayFor(model => model.Events.ElementAt(0).Time)
+    </div>
+
+    @if (Model.Events.ElementAt(0).RecordList != null && Model.Events.ElementAt(0).RecordList.Lines != null && Model.Events.ElementAt(0).RecordList.Lines.Count > 0)
+    {
+        <table class="table">
+            @foreach (var r in Model.Events.ElementAt(0).RecordList.Lines)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Result)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => r.Name)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+<div>
+    @*class="row">*@
+
+    @if (Model.Events.ElementAt(0).ResultList != null && Model.Events.ElementAt(0).ResultList.Heats != null && Model.Events.ElementAt(0).ResultList.Heats.Count > 0 && Model.Events.ElementAt(0).StateText.StartsWith("O"))
+    {
+        <div class="panel panel-info">
+            <div class="panel-heading">RESULTS - ONGOING</div>
+
+            @*<p>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Liveboard", new { id = Model.ID })">Refresh &raquo;</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Loaded:  @DateTime.Now.ToString("H:mm:ss")  |  Next refresh in
+                <p id="note"></p>
+                </p>*@
+
+            @*<div id="countdown"></div>*@
+
+            <div class="panel-body">
+                <a class="btn btn-primary" href="@Url.Action("Event", "Liveboard", new { meetId = Model.MeetId, eventId = Model.Events.ElementAt(0).Id, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay })">Refresh &raquo;</a>
+                <br />
+                Next refresh:
+                <p id="note"></p>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th></th>
+                    <th>Result</th>
+                    <th>Name</th>
+                    <th>Team</th>
+                    @for (var i = 1; i <= Model.Events.ElementAt(0).ResultList.NoInSerie; i++)
+                    {
+                        <th>@i.ToString()</th>
+                    }
+                    @if (Model.Events.ElementAt(0).ResultList.JumpSchema != null && Model.Events.ElementAt(0).ResultList.JumpSchema.Count > 0)
+                    {
+                        foreach (var h in Model.Events.ElementAt(0).ResultList.JumpSchema)
+                        {
+                            <th>@h</th>
+                        }
+                    }
+                </tr>
+
+                @foreach (var h in Model.Events.ElementAt(0).ResultList.Heats)
+                {
+                    if (h.Header.Length > 0)
+                    {
+                        <tr><td colspan="5">@Html.DisplayFor(modelItem => h.Header)</td></tr>
+                    }
+
+                    if (h.Participants != null && h.Participants.Count > 0)
+                    {
+                        foreach (var p in h.Participants)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(_ => p.Position)</td>
+                                <td>@Html.DisplayFor(_ => p.Comment)</td>
+                                <td>@Html.DisplayFor(_ => p.Result)</td>
+                                <td>@Html.DisplayFor(_ => p.Name)</td>
+
+                                @if (p.TeamId.Equals(Guid.Empty))
+                                {
+                                    <td>@Html.DisplayFor(_ => p.Team)</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                                    </td>
+                                }
+
+                                @if (p.Serie1 != null)
+                                {
+                                    foreach (var res in p.Serie1)
+                                    {
+                                        <td>@Html.DisplayFor(_ => res)</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div>
+    }
+
+    @if (Model.Events.ElementAt(0).ResultList != null && Model.Events.ElementAt(0).ResultList.Heats != null && Model.Events.ElementAt(0).ResultList.Heats.Count > 0 && Model.Events.ElementAt(0).StateText.StartsWith("F"))
+    {
+        <div class="panel panel-info">
+            <div class="panel-heading">RESULTS - FINISHED</div>
+
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th></th>
+
+                    @if (Model.Events.ElementAt(0).RoundNo < Model.Events.ElementAt(0).NoOfRounds)
+                    {
+                        <th></th>
+                    }
+
+                    <th>Result</th>
+                    <th>Name</th>
+                    <th>Team</th>
+                    @for (var i = 1; i <= Model.Events.ElementAt(0).ResultList.NoInSerie; i++)
+                    {
+                        <th>
+                            @i.ToString()
+                        </th>
+                    }
+                    @if (Model.Events.ElementAt(0).ResultList.JumpSchema != null && Model.Events.ElementAt(0).ResultList.JumpSchema.Count > 0)
+                    {
+                        foreach (var h in Model.Events.ElementAt(0).ResultList.JumpSchema)
+                        {
+                            <th>@h</th>
+                        }
+                    }
+                </tr>
+
+                @if (Model.Events.ElementAt(0).ResultList.Summary != null && Model.Events.ElementAt(0).ResultList.Summary.Count > 0)
+                {
+                    if (Model.Events.ElementAt(0).ResultList.SummaryHeader.Length > 0)
+                    {
+                        <tr><td colspan="5">@Html.DisplayFor(modelItem => modelItem.Events.ElementAt(0).ResultList.SummaryHeader)</td></tr>
+                    }
+
+                    foreach (var p in Model.Events.ElementAt(0).ResultList.Summary)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(_ => p.Position)</td>
+                            <td>@Html.DisplayFor(_ => p.Comment)</td>
+
+                            @if (Model.Events.ElementAt(0).RoundNo < Model.Events.ElementAt(0).NoOfRounds)
+                            {
+                                <td>@Html.DisplayFor(_ => p.Qualified)</td>
+                            }
+
+                            <td>@Html.DisplayFor(_ => p.Result)</td>
+                            <td>@Html.DisplayFor(_ => p.Name)</td>
+
+                            @if (p.TeamId.Equals(Guid.Empty))
+                            {
+                                <td>@Html.DisplayFor(_ => p.Team)</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                                </td>
+                            }
+
+                            @if (p.Serie1 != null)
+                            {
+                                foreach (var res in p.Serie1)
+                                {
+                                    <td>@Html.DisplayFor(_ => res)</td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+
+                @foreach (var h in Model.Events.ElementAt(0).ResultList.Heats)
+                {
+                    if (h.Header.Length > 0)
+                    {
+                        <tr><td colspan="5">@Html.DisplayFor(modelItem => h.Header)</td></tr>
+                    }
+
+                    if (h.Participants != null && h.Participants.Count > 0)
+                    {
+                        foreach (var p in h.Participants)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(_ => p.Position)</td>
+                                <td>@Html.DisplayFor(_ => p.Comment)</td>
+
+                                @if (Model.Events.ElementAt(0).RoundNo < Model.Events.ElementAt(0).NoOfRounds)
+                                {
+                                    <td>@Html.DisplayFor(modelItem => p.Qualified)</td>
+                                }
+
+                                <td>@Html.DisplayFor(_ => p.Result)</td>
+                                <td>@Html.DisplayFor(_ => p.Name)</td>
+
+                                @if (p.TeamId.Equals(Guid.Empty))
+                                {
+                                    <td>@Html.DisplayFor(_ => p.Team)</td>
+                               }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                                    </td>
+                                }
+
+                                @if (p.Serie1 != null)
+                                {
+                                    foreach (var res in p.Serie1)
+                                    {
+                                        <td>@Html.DisplayFor(_ => res)</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div>
+    }
+
+    <div class="panel panel-info">
+        <div class="panel-heading">START LIST</div>
+
+        @if (Model.Events.ElementAt(0).StartList != null && Model.Events.ElementAt(0).StartList.Heats != null && Model.Events.ElementAt(0).StartList.Heats.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>BibNo</th>
+                    <th></th>
+                    <th>SB</th>
+                    <th>PB</th>
+                    <th>Name</th>
+                    <th>YOB</th>
+                    <th>Team</th>
+                </tr>
+
+                @foreach (var h in Model.Events.ElementAt(0).StartList.Heats)
+                {
+                    if (h.Header.Length > 0)
+                    {
+                        <tr><td colspan="8">@Html.DisplayFor(modelItem => h.Header)</td></tr>
+                    }
+
+                    if (h.Participants != null && h.Participants.Count > 0)
+                    {
+                        foreach (var p in h.Participants)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(_ => p.OrderNo)</td>
+                                <td>@Html.DisplayFor(_ => p.BibNo)</td>
+                                <td>@Html.DisplayFor(_ => p.Comment)</td>
+                                <td>@Html.DisplayFor(_ => p.SB)</td>
+                                <td>@Html.DisplayFor(_ => p.PB)</td>
+                                <td>@Html.DisplayFor(_ => p.Name)</td>
+                                <td>@Html.DisplayFor(_ => p.YOB)</td>
+
+                                @if (p.TeamId.Equals(Guid.Empty))
+                                {
+                                    <td>@Html.DisplayFor(_ => p.Team)</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        }
+    </div>
+</div>
+
+@if (Model.Events.ElementAt(0).ResultList != null && Model.Events.ElementAt(0).ResultList.Heats != null && Model.Events.ElementAt(0).ResultList.Heats.Count > 0 && Model.Events.ElementAt(0).StateText.StartsWith("O"))
+{
+    @section Scripts{
+        <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/countdown")">
+        </script>
+    }
+}

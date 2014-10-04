@@ -1,0 +1,25 @@
+﻿@model  MARS.Web.Models.MeetModel
+
+@{
+    ViewBag.Title = "MARS liveboard";
+}
+
+<h2>
+    MARS liveboard
+</h2>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+    </tr>
+
+    @foreach (var item in Model.MeetList)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Description, "Events", new { meetId = item.MeetId })
+            </td>
+        </tr>
+    }
+</table>

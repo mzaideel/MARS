@@ -1,0 +1,26 @@
+﻿@model MARS.Web.Models.OneMeet
+
+@{
+    ViewBag.Title = "Events";
+}
+
+@{ Html.RenderPartial("~/Views/LiveBoard/_EventMenu.cshtml", Model); }
+
+<table class="table">
+    <tr>
+        <th>Day / time</th>
+        <th>Event</th>
+        <th>Group</th>
+        <th>State</th>
+    </tr>
+
+    @foreach (var item in Model.Events)
+    {
+        <tr>
+            <td>@Html.DisplayFor(_ => item.DayTime)</td>
+            <td>@Html.ActionLink(item.EventText2, "Event", new { meetId = Model.MeetId, eventId = item.Id, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay })</td>
+            <td>@Html.DisplayFor(_ => item.GroupText)</td>
+            <td>@Html.DisplayFor(_ => item.StateText)</td>
+        </tr>
+    }
+</table>

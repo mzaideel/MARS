@@ -1,0 +1,80 @@
+﻿@model MARS.Web.Models.OneMeet
+
+<h2>
+    @Html.DisplayFor(model => model.Description)
+</h2>
+
+<div>
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Events", "Events", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-primary" })
+        }
+    </div>
+
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Teams", "Teams", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-default" })
+        }
+    </div>
+
+    @if (Model.NoOfDays > 1)
+    {
+        var text = Model.CurrentDay == 0 ? "All days" : String.Format("Day {0}", Model.CurrentDay);
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                @text                
+                <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                @if (Model.CurrentDay != 0)
+                {
+                    <li>
+                        @Html.ActionLink("All days", "Events", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = 0 })
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.NoOfDays; i++)
+                {
+                    if (Model.CurrentDay != i)
+                    {
+                        <li>
+                            @Html.ActionLink(String.Format("Day {0}", i), "Events", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = i })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    @{
+        var className = Model.CurrentGroupId == null ? "btn-primary" : "btn-default";
+    }
+    <div class="btn-group">
+        @Html.ActionLink("ALL", "Events", new { meetId = Model.MeetId, dayNo = Model.CurrentDay }, new { @class = "btn " + className })
+    </div>
+
+    @foreach (var item in Model.Groups)
+    {
+        className = item.GroupId == Model.CurrentGroupId ? "btn-primary" : "btn-default";
+
+        <div class="btn-group">
+            @Html.ActionLink(item.GroupId, "Events", new { meetId = Model.MeetId, groupId = item.GroupId, dayNo = Model.CurrentDay }, new { @class = "btn " + className })
+
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                @foreach (var ev in item.Events)
+                {
+                    <li>
+                        @Html.ActionLink(ev.EventText2, "Event", new { meetId = Model.MeetId, eventId = ev.Id, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay })
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+</div>

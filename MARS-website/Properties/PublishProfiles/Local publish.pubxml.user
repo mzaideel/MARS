@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\GitHub\WorkingMARS-SqlServer\MARS-website-publish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>08/15/2014 12:22:13</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/13/2014 19:12:01</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>08/13/2014 19:12:01</publishTime>
+    </File>
+    <File Include="bin/Ionic.Zip.dll">
+      <publishTime>02/11/2013 22:13:19</publishTime>
+    </File>
+    <File Include="bin/MARS-meet.dll">
+      <publishTime>05/09/2014 07:52:24</publishTime>
+    </File>
+    <File Include="bin/MARS-utils.dll">
+      <publishTime>08/25/2014 08:23:23</publishTime>
+    </File>
+    <File Include="bin/MARS.dll">
+      <publishTime>05/09/2014 07:52:25</publishTime>
+    </File>
+    <File Include="bin/MARS2-data.dll">
+      <publishTime>08/25/2014 08:23:23</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/15/2014 12:22:18</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/15/2014 12:22:19</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/15/2014 12:22:17</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/15/2014 12:22:14</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>08/15/2014 12:22:16</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/15/2014 12:22:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/15/2014 12:22:17</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/15/2014 12:22:17</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/15/2014 12:22:17</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>08/15/2014 12:22:19</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>07/26/2014 17:54:27</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Content/jquery.countdown.css">
+      <publishTime>07/26/2014 00:37:21</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>08/29/2014 07:25:54</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>07/24/2014 08:47:42</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>07/24/2014 08:47:42</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/15/2014 12:46:06</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Scripts/countdown.js">
+      <publishTime>07/26/2014 00:06:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>07/24/2014 08:47:43</publishTime>
+    </File>
+    <File Include="Scripts/jquery.countdown.js">
+      <publishTime>07/25/2014 10:17:28</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>07/24/2014 08:47:44</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>07/24/2014 08:47:44</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>07/24/2014 08:47:44</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>07/25/2014 10:18:09</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>07/24/2014 08:50:56</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>07/24/2014 11:11:46</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Details.cshtml">
+      <publishTime>08/27/2014 06:43:20</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Event.cshtml">
+      <publishTime>08/31/2014 15:18:30</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Events.cshtml">
+      <publishTime>08/29/2014 15:35:46</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Index.cshtml">
+      <publishTime>08/29/2014 09:19:24</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Meet.cshtml">
+      <publishTime>08/28/2014 08:24:53</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Team.cshtml">
+      <publishTime>02/09/2014 21:25:29</publishTime>
+    </File>
+    <File Include="Views/Liveboard/Teams.cshtml">
+      <publishTime>08/29/2014 13:53:05</publishTime>
+    </File>
+    <File Include="Views/Liveboard/_EventMenu.cshtml">
+      <publishTime>08/29/2014 14:13:22</publishTime>
+    </File>
+    <File Include="Views/Liveboard/_TeamMenu.cshtml">
+      <publishTime>08/29/2014 15:25:47</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>07/24/2014 08:47:42</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>08/29/2014 00:22:31</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>07/24/2014 08:47:42</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>07/24/2014 08:47:42</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>05/09/2014 07:52:26</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

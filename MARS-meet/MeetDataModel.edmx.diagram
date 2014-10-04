@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="79fed2b3ecf544cfbe75c8bf724b5473" Name="Diagram1">
+        <EntityTypeShape EntityType="MARS.Meet.mars_MEventEntries" Width="2.375" PointX="7.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Meet.mars_MGroups" Width="2" PointX="4.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Meet.mars_MMarks" Width="2.375" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Meet.mars_MMeet" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Meet.mars_MParticipants" Width="2.25" PointX="7.875" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="MARS.Meet.mars_MTeams" Width="2" PointX="3.5" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MEventEntri__116A8EFB" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MMarks__1446FBA6" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MGro__MeetI__125EB334" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MMarks__1352D76D" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MTea__MeetI__162F4418" ManuallyRouted="false" />
+        <AssociationConnector Association="MARS.Meet.FK__mars_MParticipan__153B1FDF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

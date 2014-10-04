@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MARS.Config.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mars_CCombinedEvents">
+          <Key>
+            <PropertyRef Name="CombinedEventId" />
+            <PropertyRef Name="CombinedSubEventId" />
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="CombinedEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="CombinedSubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="EventNo" Type="tinyint" Nullable="false" />
+          <Property Name="DayNo" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mars_CEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="EventType" Type="tinyint" Nullable="false" />
+          <Property Name="ResultPrecision" Type="tinyint" Nullable="false" />
+          <Property Name="ResultLayout" Type="tinyint" Nullable="false" />
+          <Property Name="ManualTimeAdjustment" Type="int" Nullable="false" />
+          <Property Name="WindMeasure" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="WindMaxAllowed" Type="nvarchar" MaxLength="16" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mars_CGroupEvents">
+          <Key>
+            <PropertyRef Name="GroupId" />
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="GroupId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" />
+          <Property Name="Indoor" Type="char" MaxLength="1" />
+          <Property Name="Outdoor" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="mars_CGroups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Age" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mars_CRecordMarks">
+          <Key>
+            <PropertyRef Name="RecordMarkId" />
+          </Key>
+          <Property Name="RecordMarkId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RecordId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Place" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecordDate" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Mark" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkAddOn" Type="nvarchar" MaxLength="20" />
+          <Property Name="MarkRemark" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="mars_CRecords">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ShortText" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mars_CSubEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__mars_CCombinedEv__6497E884">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CCombinedEvents" Type="Self.mars_CCombinedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CCombinedEvents">
+              <PropertyRef Name="CombinedEventId" />
+              <PropertyRef Name="CombinedSubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CCombinedEv__658C0CBD">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CCombinedEvents" Type="Self.mars_CCombinedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CCombinedEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CGro__Group__668030F6">
+          <End Role="mars_CGroups" Type="Self.mars_CGroups" Multiplicity="1" />
+          <End Role="mars_CGroupEvents" Type="Self.mars_CGroupEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CGroups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="mars_CGroupEvents">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CGroupEvent__6774552F">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CGroupEvents" Type="Self.mars_CGroupEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CGroupEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CRec__Recor__5D4BCC77">
+          <End Role="mars_CRecords" Type="Self.mars_CRecords" Multiplicity="1" />
+          <End Role="mars_CRecordMarks" Type="Self.mars_CRecordMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CRecords">
+              <PropertyRef Name="RecordId" />
+            </Principal>
+            <Dependent Role="mars_CRecordMarks">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CRecordMark__5E3FF0B0">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CRecordMarks" Type="Self.mars_CRecordMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CRecordMarks">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CSub__Event__68687968">
+          <End Role="mars_CEvents" Type="Self.mars_CEvents" Multiplicity="1" />
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CEvents">
+              <PropertyRef Name="EventId" />
+            </Principal>
+            <Dependent Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MARSConfigStoreContainer">
+          <EntitySet Name="mars_CCombinedEvents" EntityType="Self.mars_CCombinedEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CEvents" EntityType="Self.mars_CEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CGroupEvents" EntityType="Self.mars_CGroupEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CGroups" EntityType="Self.mars_CGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CRecordMarks" EntityType="Self.mars_CRecordMarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CRecords" EntityType="Self.mars_CRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_CSubEvents" EntityType="Self.mars_CSubEvents" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__mars_CCombinedEv__6497E884" Association="Self.FK__mars_CCombinedEv__6497E884">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CCombinedEvents" EntitySet="mars_CCombinedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CCombinedEv__658C0CBD" Association="Self.FK__mars_CCombinedEv__658C0CBD">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CCombinedEvents" EntitySet="mars_CCombinedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CGro__Group__668030F6" Association="Self.FK__mars_CGro__Group__668030F6">
+            <End Role="mars_CGroups" EntitySet="mars_CGroups" />
+            <End Role="mars_CGroupEvents" EntitySet="mars_CGroupEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CGroupEvent__6774552F" Association="Self.FK__mars_CGroupEvent__6774552F">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CGroupEvents" EntitySet="mars_CGroupEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CRec__Recor__5D4BCC77" Association="Self.FK__mars_CRec__Recor__5D4BCC77">
+            <End Role="mars_CRecords" EntitySet="mars_CRecords" />
+            <End Role="mars_CRecordMarks" EntitySet="mars_CRecordMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CRecordMark__5E3FF0B0" Association="Self.FK__mars_CRecordMark__5E3FF0B0">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CRecordMarks" EntitySet="mars_CRecordMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CSub__Event__68687968" Association="Self.FK__mars_CSub__Event__68687968">
+            <End Role="mars_CEvents" EntitySet="mars_CEvents" />
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MARS.Config" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mars_CCombinedEvents">
+          <Key>
+            <PropertyRef Name="CombinedEventId" />
+            <PropertyRef Name="CombinedSubEventId" />
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="CombinedEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CombinedSubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventNo" Type="Byte" Nullable="false" />
+          <Property Name="DayNo" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="mars_CSubEvents" Relationship="Self.FK__mars_CCombinedEv__6497E884" FromRole="mars_CCombinedEvents" ToRole="mars_CSubEvents" />
+          <NavigationProperty Name="mars_CSubEvents1" Relationship="Self.FK__mars_CCombinedEv__658C0CBD" FromRole="mars_CCombinedEvents" ToRole="mars_CSubEvents" />
+        </EntityType>
+        <EntityType Name="mars_CEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventType" Type="Byte" Nullable="false" />
+          <Property Name="ResultPrecision" Type="Byte" Nullable="false" />
+          <Property Name="ResultLayout" Type="Byte" Nullable="false" />
+          <Property Name="ManualTimeAdjustment" Type="Int32" Nullable="false" />
+          <Property Name="WindMeasure" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="WindMaxAllowed" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mars_CSubEvents" Relationship="Self.FK__mars_CSub__Event__68687968" FromRole="mars_CEvents" ToRole="mars_CSubEvents" />
+        </EntityType>
+        <EntityType Name="mars_CGroupEvents">
+          <Key>
+            <PropertyRef Name="GroupId" />
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="GroupId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Indoor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Outdoor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="mars_CGroups" Relationship="Self.FK__mars_CGro__Group__668030F6" FromRole="mars_CGroupEvents" ToRole="mars_CGroups" />
+          <NavigationProperty Name="mars_CSubEvents" Relationship="Self.FK__mars_CGroupEvent__6774552F" FromRole="mars_CGroupEvents" ToRole="mars_CSubEvents" />
+        </EntityType>
+        <EntityType Name="mars_CGroups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mars_CGroupEvents" Relationship="Self.FK__mars_CGro__Group__668030F6" FromRole="mars_CGroups" ToRole="mars_CGroupEvents" />
+        </EntityType>
+        <EntityType Name="mars_CRecordMarks">
+          <Key>
+            <PropertyRef Name="RecordMarkId" />
+          </Key>
+          <Property Name="RecordMarkId" Type="Guid" Nullable="false" />
+          <Property Name="RecordId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeamName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecordDate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkAddOn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MarkRemark" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mars_CRecords" Relationship="Self.FK__mars_CRec__Recor__5D4BCC77" FromRole="mars_CRecordMarks" ToRole="mars_CRecords" />
+          <NavigationProperty Name="mars_CSubEvents" Relationship="Self.FK__mars_CRecordMark__5E3FF0B0" FromRole="mars_CRecordMarks" ToRole="mars_CSubEvents" />
+        </EntityType>
+        <EntityType Name="mars_CRecords">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortText" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mars_CRecordMarks" Relationship="Self.FK__mars_CRec__Recor__5D4BCC77" FromRole="mars_CRecords" ToRole="mars_CRecordMarks" />
+        </EntityType>
+        <EntityType Name="mars_CSubEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="SubEventId" />
+          </Key>
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mars_CCombinedEvents" Relationship="Self.FK__mars_CCombinedEv__6497E884" FromRole="mars_CSubEvents" ToRole="mars_CCombinedEvents" />
+          <NavigationProperty Name="mars_CCombinedEvents1" Relationship="Self.FK__mars_CCombinedEv__658C0CBD" FromRole="mars_CSubEvents" ToRole="mars_CCombinedEvents" />
+          <NavigationProperty Name="mars_CEvents" Relationship="Self.FK__mars_CSub__Event__68687968" FromRole="mars_CSubEvents" ToRole="mars_CEvents" />
+          <NavigationProperty Name="mars_CGroupEvents" Relationship="Self.FK__mars_CGroupEvent__6774552F" FromRole="mars_CSubEvents" ToRole="mars_CGroupEvents" />
+          <NavigationProperty Name="mars_CRecordMarks" Relationship="Self.FK__mars_CRecordMark__5E3FF0B0" FromRole="mars_CSubEvents" ToRole="mars_CRecordMarks" />
+        </EntityType>
+        <Association Name="FK__mars_CCombinedEv__6497E884">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CCombinedEvents" Type="Self.mars_CCombinedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CCombinedEvents">
+              <PropertyRef Name="CombinedEventId" />
+              <PropertyRef Name="CombinedSubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CCombinedEv__658C0CBD">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CCombinedEvents" Type="Self.mars_CCombinedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CCombinedEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CSub__Event__68687968">
+          <End Role="mars_CEvents" Type="Self.mars_CEvents" Multiplicity="1" />
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CEvents">
+              <PropertyRef Name="EventId" />
+            </Principal>
+            <Dependent Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CGro__Group__668030F6">
+          <End Role="mars_CGroups" Type="Self.mars_CGroups" Multiplicity="1" />
+          <End Role="mars_CGroupEvents" Type="Self.mars_CGroupEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CGroups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="mars_CGroupEvents">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CGroupEvent__6774552F">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CGroupEvents" Type="Self.mars_CGroupEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CGroupEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CRec__Recor__5D4BCC77">
+          <End Role="mars_CRecords" Type="Self.mars_CRecords" Multiplicity="1" />
+          <End Role="mars_CRecordMarks" Type="Self.mars_CRecordMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CRecords">
+              <PropertyRef Name="RecordId" />
+            </Principal>
+            <Dependent Role="mars_CRecordMarks">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_CRecordMark__5E3FF0B0">
+          <End Role="mars_CSubEvents" Type="Self.mars_CSubEvents" Multiplicity="1" />
+          <End Role="mars_CRecordMarks" Type="Self.mars_CRecordMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_CSubEvents">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Principal>
+            <Dependent Role="mars_CRecordMarks">
+              <PropertyRef Name="EventId" />
+              <PropertyRef Name="SubEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MARS_Config_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mars_CCombinedEvents" EntityType="Self.mars_CCombinedEvents" />
+          <EntitySet Name="mars_CEvents" EntityType="Self.mars_CEvents" />
+          <EntitySet Name="mars_CGroupEvents" EntityType="Self.mars_CGroupEvents" />
+          <EntitySet Name="mars_CGroups" EntityType="Self.mars_CGroups" />
+          <EntitySet Name="mars_CRecordMarks" EntityType="Self.mars_CRecordMarks" />
+          <EntitySet Name="mars_CRecords" EntityType="Self.mars_CRecords" />
+          <EntitySet Name="mars_CSubEvents" EntityType="Self.mars_CSubEvents" />
+          <AssociationSet Name="FK__mars_CCombinedEv__6497E884" Association="Self.FK__mars_CCombinedEv__6497E884">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CCombinedEvents" EntitySet="mars_CCombinedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CCombinedEv__658C0CBD" Association="Self.FK__mars_CCombinedEv__658C0CBD">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CCombinedEvents" EntitySet="mars_CCombinedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CSub__Event__68687968" Association="Self.FK__mars_CSub__Event__68687968">
+            <End Role="mars_CEvents" EntitySet="mars_CEvents" />
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CGro__Group__668030F6" Association="Self.FK__mars_CGro__Group__668030F6">
+            <End Role="mars_CGroups" EntitySet="mars_CGroups" />
+            <End Role="mars_CGroupEvents" EntitySet="mars_CGroupEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CGroupEvent__6774552F" Association="Self.FK__mars_CGroupEvent__6774552F">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CGroupEvents" EntitySet="mars_CGroupEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CRec__Recor__5D4BCC77" Association="Self.FK__mars_CRec__Recor__5D4BCC77">
+            <End Role="mars_CRecords" EntitySet="mars_CRecords" />
+            <End Role="mars_CRecordMarks" EntitySet="mars_CRecordMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_CRecordMark__5E3FF0B0" Association="Self.FK__mars_CRecordMark__5E3FF0B0">
+            <End Role="mars_CSubEvents" EntitySet="mars_CSubEvents" />
+            <End Role="mars_CRecordMarks" EntitySet="mars_CRecordMarks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MARSConfigStoreContainer" CdmEntityContainer="MARS_Config_dbEntities">
+          <EntitySetMapping Name="mars_CCombinedEvents">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CCombinedEvents">
+              <MappingFragment StoreEntitySet="mars_CCombinedEvents">
+                <ScalarProperty Name="CombinedEventId" ColumnName="CombinedEventId" />
+                <ScalarProperty Name="CombinedSubEventId" ColumnName="CombinedSubEventId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="SubEventId" ColumnName="SubEventId" />
+                <ScalarProperty Name="EventNo" ColumnName="EventNo" />
+                <ScalarProperty Name="DayNo" ColumnName="DayNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CEvents">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CEvents">
+              <MappingFragment StoreEntitySet="mars_CEvents">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="ResultPrecision" ColumnName="ResultPrecision" />
+                <ScalarProperty Name="ResultLayout" ColumnName="ResultLayout" />
+                <ScalarProperty Name="ManualTimeAdjustment" ColumnName="ManualTimeAdjustment" />
+                <ScalarProperty Name="WindMeasure" ColumnName="WindMeasure" />
+                <ScalarProperty Name="WindMaxAllowed" ColumnName="WindMaxAllowed" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CGroupEvents">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CGroupEvents">
+              <MappingFragment StoreEntitySet="mars_CGroupEvents">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="SubEventId" ColumnName="SubEventId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Indoor" ColumnName="Indoor" />
+                <ScalarProperty Name="Outdoor" ColumnName="Outdoor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CGroups">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CGroups">
+              <MappingFragment StoreEntitySet="mars_CGroups">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CRecordMarks">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CRecordMarks">
+              <MappingFragment StoreEntitySet="mars_CRecordMarks">
+                <ScalarProperty Name="RecordMarkId" ColumnName="RecordMarkId" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="SubEventId" ColumnName="SubEventId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="MarkAddOn" ColumnName="MarkAddOn" />
+                <ScalarProperty Name="MarkRemark" ColumnName="MarkRemark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CRecords">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CRecords">
+              <MappingFragment StoreEntitySet="mars_CRecords">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ShortText" ColumnName="ShortText" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_CSubEvents">
+            <EntityTypeMapping TypeName="MARS.Config.mars_CSubEvents">
+              <MappingFragment StoreEntitySet="mars_CSubEvents">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="SubEventId" ColumnName="SubEventId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

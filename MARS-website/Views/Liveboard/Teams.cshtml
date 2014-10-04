@@ -1,0 +1,26 @@
+﻿@model MARS.Web.Models.OneMeet
+
+@{
+    ViewBag.Title = "Teams";
+}
+
+@{ Html.RenderPartial("~/Views/LiveBoard/_TeamMenu.cshtml", Model); }
+
+<table class="table">
+    <tr>
+        <th>Team</th>
+    </tr>
+
+    @foreach (var rows in Model.TeamRows)
+    {
+        <tr>
+            @foreach (var t in rows)
+            {
+                <td>
+                    @Html.ActionLink(t.Name, "Team", new { meetId = Model.MeetId, teamId = t.Id, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

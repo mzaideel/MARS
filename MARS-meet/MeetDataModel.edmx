@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MARS.Meet.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mars_MEventEntries">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="EventEntryId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventEntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GroupId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="EventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SubEventId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SubText" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+          <Property Name="EventType" Type="tinyint" Nullable="false" />
+          <Property Name="ResultPrecision" Type="tinyint" Nullable="false" />
+          <Property Name="ResultLayout" Type="tinyint" Nullable="false" />
+          <Property Name="ManualTimeAdjustment" Type="int" Nullable="false" />
+          <Property Name="WindMeasure" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="WindMaxAllowed" Type="nvarchar" MaxLength="16" />
+          <Property Name="RoundNo" Type="tinyint" Nullable="false" />
+          <Property Name="HeatGroupNo" Type="tinyint" Nullable="false" />
+          <Property Name="DayNo" Type="tinyint" />
+          <Property Name="Seconds" Type="int" />
+          <Property Name="Indoor" Type="char" MaxLength="1" />
+          <Property Name="Outdoor" Type="char" MaxLength="1" />
+          <Property Name="UserDefined" Type="tinyint" />
+          <Property Name="SortKeyEventId" Type="int" Nullable="false" />
+          <Property Name="RoundShorthand" Type="char" MaxLength="1" />
+          <Property Name="RoundText" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoOfRounds" Type="int" />
+          <Property Name="Started" Type="datetime" />
+          <Property Name="Stopped" Type="datetime" />
+          <Property Name="LiveResults" Type="nvarchar(max)" />
+          <Property Name="State" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="mars_MGroups">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GroupId" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Age" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SortKey" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mars_MMarks">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="MarkId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MarkId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParticipantId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventEntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="LaneNo" Type="int" />
+          <Property Name="SubLaneNo" Type="int" />
+          <Property Name="QualifyingMark" Type="int" />
+          <Property Name="SB" Type="int" />
+          <Property Name="PB" Type="int" />
+          <Property Name="Mark" Type="int" />
+          <Property Name="Points" Type="int" />
+          <Property Name="QualifyingEntry" Type="nvarchar" MaxLength="50" />
+          <Property Name="LateEntryCode" Type="int" />
+          <Property Name="MarkCode" Type="char" MaxLength="1" />
+          <Property Name="Pos" Type="int" />
+          <Property Name="PosCode" Type="int" />
+          <Property Name="MarkRemark" Type="nvarchar" MaxLength="20" />
+          <Property Name="MarkText" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="mars_MMeet">
+          <Key>
+            <PropertyRef Name="MeetId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="Organizer" Type="nvarchar" MaxLength="128" />
+          <Property Name="Location" Type="nvarchar" MaxLength="128" />
+          <Property Name="Stadium" Type="nvarchar" MaxLength="128" />
+          <Property Name="Manager" Type="nvarchar" MaxLength="128" />
+          <Property Name="ManagerMail" Type="nvarchar" MaxLength="256" />
+          <Property Name="ManagerPhone" Type="nvarchar" MaxLength="256" />
+          <Property Name="HomesiteUrl" Type="nvarchar" MaxLength="256" />
+          <Property Name="StartEntryDate" Type="datetime" />
+          <Property Name="StopEntryDate" Type="datetime" />
+          <Property Name="VisibleCode" Type="nchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="mars_MParticipants">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="ParticipantId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParticipantId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TeamId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" />
+          <Property Name="UsedName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="YearOfBirth" Type="int" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="3" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="256" />
+          <Property Name="Alias" Type="nvarchar" MaxLength="10" />
+          <Property Name="DAFNo" Type="int" />
+          <Property Name="UserDefined" Type="tinyint" />
+          <Property Name="BibNo" Type="int" />
+        </EntityType>
+        <EntityType Name="mars_MTeams">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="MeetId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TeamId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name3" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="Name6" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Name9" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Nation" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="SortKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DAFName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserDefined" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK__mars_MEventEntri__116A8EFB">
+          <End Role="mars_MGroups" Type="Self.mars_MGroups" Multiplicity="1" />
+          <End Role="mars_MEventEntries" Type="Self.mars_MEventEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MGroups">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="mars_MEventEntries">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MGro__MeetI__125EB334">
+          <End Role="mars_MMeet" Type="Self.mars_MMeet" Multiplicity="1" />
+          <End Role="mars_MGroups" Type="Self.mars_MGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MMeet">
+              <PropertyRef Name="MeetId" />
+            </Principal>
+            <Dependent Role="mars_MGroups">
+              <PropertyRef Name="MeetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MMarks__1352D76D">
+          <End Role="mars_MParticipants" Type="Self.mars_MParticipants" Multiplicity="1" />
+          <End Role="mars_MMarks" Type="Self.mars_MMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MParticipants">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="ParticipantId" />
+            </Principal>
+            <Dependent Role="mars_MMarks">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MMarks__1446FBA6">
+          <End Role="mars_MEventEntries" Type="Self.mars_MEventEntries" Multiplicity="1" />
+          <End Role="mars_MMarks" Type="Self.mars_MMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MEventEntries">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="EventEntryId" />
+            </Principal>
+            <Dependent Role="mars_MMarks">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="EventEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MParticipan__153B1FDF">
+          <End Role="mars_MTeams" Type="Self.mars_MTeams" Multiplicity="1" />
+          <End Role="mars_MParticipants" Type="Self.mars_MParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MTeams">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="mars_MParticipants">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MTea__MeetI__162F4418">
+          <End Role="mars_MMeet" Type="Self.mars_MMeet" Multiplicity="1" />
+          <End Role="mars_MTeams" Type="Self.mars_MTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MMeet">
+              <PropertyRef Name="MeetId" />
+            </Principal>
+            <Dependent Role="mars_MTeams">
+              <PropertyRef Name="MeetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MARSMeetStoreContainer">
+          <EntitySet Name="mars_MEventEntries" EntityType="Self.mars_MEventEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_MGroups" EntityType="Self.mars_MGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_MMarks" EntityType="Self.mars_MMarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_MMeet" EntityType="Self.mars_MMeet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_MParticipants" EntityType="Self.mars_MParticipants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mars_MTeams" EntityType="Self.mars_MTeams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__mars_MEventEntri__116A8EFB" Association="Self.FK__mars_MEventEntri__116A8EFB">
+            <End Role="mars_MGroups" EntitySet="mars_MGroups" />
+            <End Role="mars_MEventEntries" EntitySet="mars_MEventEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MGro__MeetI__125EB334" Association="Self.FK__mars_MGro__MeetI__125EB334">
+            <End Role="mars_MMeet" EntitySet="mars_MMeet" />
+            <End Role="mars_MGroups" EntitySet="mars_MGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MMarks__1352D76D" Association="Self.FK__mars_MMarks__1352D76D">
+            <End Role="mars_MParticipants" EntitySet="mars_MParticipants" />
+            <End Role="mars_MMarks" EntitySet="mars_MMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MMarks__1446FBA6" Association="Self.FK__mars_MMarks__1446FBA6">
+            <End Role="mars_MEventEntries" EntitySet="mars_MEventEntries" />
+            <End Role="mars_MMarks" EntitySet="mars_MMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MParticipan__153B1FDF" Association="Self.FK__mars_MParticipan__153B1FDF">
+            <End Role="mars_MTeams" EntitySet="mars_MTeams" />
+            <End Role="mars_MParticipants" EntitySet="mars_MParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MTea__MeetI__162F4418" Association="Self.FK__mars_MTea__MeetI__162F4418">
+            <End Role="mars_MMeet" EntitySet="mars_MMeet" />
+            <End Role="mars_MTeams" EntitySet="mars_MTeams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MARS.Meet" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mars_MEventEntries">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="EventEntryId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="EventEntryId" Type="Guid" Nullable="false" />
+          <Property Name="GroupId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubEventId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubText" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <Property Name="EventType" Type="Byte" Nullable="false" />
+          <Property Name="ResultPrecision" Type="Byte" Nullable="false" />
+          <Property Name="ResultLayout" Type="Byte" Nullable="false" />
+          <Property Name="ManualTimeAdjustment" Type="Int32" Nullable="false" />
+          <Property Name="WindMeasure" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="WindMaxAllowed" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="RoundNo" Type="Byte" Nullable="false" />
+          <Property Name="HeatGroupNo" Type="Byte" Nullable="false" />
+          <Property Name="DayNo" Type="Byte" />
+          <Property Name="Seconds" Type="Int32" />
+          <Property Name="Indoor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Outdoor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UserDefined" Type="Byte" />
+          <Property Name="SortKeyEventId" Type="Int32" Nullable="false" />
+          <Property Name="RoundShorthand" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="RoundText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoOfRounds" Type="Int32" />
+          <Property Name="Started" Type="DateTime" Precision="3" />
+          <Property Name="Stopped" Type="DateTime" Precision="3" />
+          <Property Name="LiveResults" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mars_MGroups" Relationship="Self.FK__mars_MEventEntri__116A8EFB" FromRole="mars_MEventEntries" ToRole="mars_MGroups" />
+          <NavigationProperty Name="mars_MMarks" Relationship="Self.FK__mars_MMarks__1446FBA6" FromRole="mars_MEventEntries" ToRole="mars_MMarks" />
+          <Property Name="State" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mars_MGroups">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="GroupId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mars_MEventEntries" Relationship="Self.FK__mars_MEventEntri__116A8EFB" FromRole="mars_MGroups" ToRole="mars_MEventEntries" />
+          <NavigationProperty Name="mars_MMeet" Relationship="Self.FK__mars_MGro__MeetI__125EB334" FromRole="mars_MGroups" ToRole="mars_MMeet" />
+        </EntityType>
+        <EntityType Name="mars_MMarks">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="MarkId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="MarkId" Type="Guid" Nullable="false" />
+          <Property Name="ParticipantId" Type="Guid" Nullable="false" />
+          <Property Name="EventEntryId" Type="Guid" Nullable="false" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="LaneNo" Type="Int32" />
+          <Property Name="SubLaneNo" Type="Int32" />
+          <Property Name="QualifyingMark" Type="Int32" />
+          <Property Name="SB" Type="Int32" />
+          <Property Name="PB" Type="Int32" />
+          <Property Name="Mark" Type="Int32" />
+          <Property Name="Points" Type="Int32" />
+          <Property Name="QualifyingEntry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LateEntryCode" Type="Int32" />
+          <Property Name="MarkCode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Pos" Type="Int32" />
+          <Property Name="PosCode" Type="Int32" />
+          <Property Name="MarkRemark" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MarkText" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mars_MEventEntries" Relationship="Self.FK__mars_MMarks__1446FBA6" FromRole="mars_MMarks" ToRole="mars_MEventEntries" />
+          <NavigationProperty Name="mars_MParticipants" Relationship="Self.FK__mars_MMarks__1352D76D" FromRole="mars_MMarks" ToRole="mars_MParticipants" />
+        </EntityType>
+        <EntityType Name="mars_MMeet">
+          <Key>
+            <PropertyRef Name="MeetId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Organizer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Stadium" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Manager" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerMail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerPhone" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="HomesiteUrl" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="StartEntryDate" Type="DateTime" Precision="3" />
+          <Property Name="StopEntryDate" Type="DateTime" Precision="3" />
+          <Property Name="VisibleCode" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="mars_MGroups" Relationship="Self.FK__mars_MGro__MeetI__125EB334" FromRole="mars_MMeet" ToRole="mars_MGroups" />
+          <NavigationProperty Name="mars_MTeams" Relationship="Self.FK__mars_MTea__MeetI__162F4418" FromRole="mars_MMeet" ToRole="mars_MTeams" />
+        </EntityType>
+        <EntityType Name="mars_MParticipants">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="ParticipantId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="ParticipantId" Type="Guid" Nullable="false" />
+          <Property Name="TeamId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UsedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="YearOfBirth" Type="Int32" />
+          <Property Name="Nationality" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Alias" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DAFNo" Type="Int32" />
+          <Property Name="UserDefined" Type="Byte" />
+          <Property Name="BibNo" Type="Int32" />
+          <NavigationProperty Name="mars_MMarks" Relationship="Self.FK__mars_MMarks__1352D76D" FromRole="mars_MParticipants" ToRole="mars_MMarks" />
+          <NavigationProperty Name="mars_MTeams" Relationship="Self.FK__mars_MParticipan__153B1FDF" FromRole="mars_MParticipants" ToRole="mars_MTeams" />
+        </EntityType>
+        <EntityType Name="mars_MTeams">
+          <Key>
+            <PropertyRef Name="MeetId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="MeetId" Type="Guid" Nullable="false" />
+          <Property Name="TeamId" Type="Guid" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name3" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name6" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name9" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nation" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DAFName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserDefined" Type="Byte" />
+          <NavigationProperty Name="mars_MMeet" Relationship="Self.FK__mars_MTea__MeetI__162F4418" FromRole="mars_MTeams" ToRole="mars_MMeet" />
+          <NavigationProperty Name="mars_MParticipants" Relationship="Self.FK__mars_MParticipan__153B1FDF" FromRole="mars_MTeams" ToRole="mars_MParticipants" />
+        </EntityType>
+        <Association Name="FK__mars_MEventEntri__116A8EFB">
+          <End Role="mars_MGroups" Type="Self.mars_MGroups" Multiplicity="1" />
+          <End Role="mars_MEventEntries" Type="Self.mars_MEventEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MGroups">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="mars_MEventEntries">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MMarks__1446FBA6">
+          <End Role="mars_MEventEntries" Type="Self.mars_MEventEntries" Multiplicity="1" />
+          <End Role="mars_MMarks" Type="Self.mars_MMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MEventEntries">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="EventEntryId" />
+            </Principal>
+            <Dependent Role="mars_MMarks">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="EventEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MGro__MeetI__125EB334">
+          <End Role="mars_MMeet" Type="Self.mars_MMeet" Multiplicity="1" />
+          <End Role="mars_MGroups" Type="Self.mars_MGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MMeet">
+              <PropertyRef Name="MeetId" />
+            </Principal>
+            <Dependent Role="mars_MGroups">
+              <PropertyRef Name="MeetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MMarks__1352D76D">
+          <End Role="mars_MParticipants" Type="Self.mars_MParticipants" Multiplicity="1" />
+          <End Role="mars_MMarks" Type="Self.mars_MMarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MParticipants">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="ParticipantId" />
+            </Principal>
+            <Dependent Role="mars_MMarks">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MTea__MeetI__162F4418">
+          <End Role="mars_MMeet" Type="Self.mars_MMeet" Multiplicity="1" />
+          <End Role="mars_MTeams" Type="Self.mars_MTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MMeet">
+              <PropertyRef Name="MeetId" />
+            </Principal>
+            <Dependent Role="mars_MTeams">
+              <PropertyRef Name="MeetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__mars_MParticipan__153B1FDF">
+          <End Role="mars_MTeams" Type="Self.mars_MTeams" Multiplicity="1" />
+          <End Role="mars_MParticipants" Type="Self.mars_MParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mars_MTeams">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="mars_MParticipants">
+              <PropertyRef Name="MeetId" />
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MARS_Meet_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mars_MEventEntries" EntityType="Self.mars_MEventEntries" />
+          <EntitySet Name="mars_MGroups" EntityType="Self.mars_MGroups" />
+          <EntitySet Name="mars_MMarks" EntityType="Self.mars_MMarks" />
+          <EntitySet Name="mars_MMeet" EntityType="Self.mars_MMeet" />
+          <EntitySet Name="mars_MParticipants" EntityType="Self.mars_MParticipants" />
+          <EntitySet Name="mars_MTeams" EntityType="Self.mars_MTeams" />
+          <AssociationSet Name="FK__mars_MEventEntri__116A8EFB" Association="Self.FK__mars_MEventEntri__116A8EFB">
+            <End Role="mars_MGroups" EntitySet="mars_MGroups" />
+            <End Role="mars_MEventEntries" EntitySet="mars_MEventEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MMarks__1446FBA6" Association="Self.FK__mars_MMarks__1446FBA6">
+            <End Role="mars_MEventEntries" EntitySet="mars_MEventEntries" />
+            <End Role="mars_MMarks" EntitySet="mars_MMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MGro__MeetI__125EB334" Association="Self.FK__mars_MGro__MeetI__125EB334">
+            <End Role="mars_MMeet" EntitySet="mars_MMeet" />
+            <End Role="mars_MGroups" EntitySet="mars_MGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MMarks__1352D76D" Association="Self.FK__mars_MMarks__1352D76D">
+            <End Role="mars_MParticipants" EntitySet="mars_MParticipants" />
+            <End Role="mars_MMarks" EntitySet="mars_MMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MTea__MeetI__162F4418" Association="Self.FK__mars_MTea__MeetI__162F4418">
+            <End Role="mars_MMeet" EntitySet="mars_MMeet" />
+            <End Role="mars_MTeams" EntitySet="mars_MTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__mars_MParticipan__153B1FDF" Association="Self.FK__mars_MParticipan__153B1FDF">
+            <End Role="mars_MTeams" EntitySet="mars_MTeams" />
+            <End Role="mars_MParticipants" EntitySet="mars_MParticipants" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MARSMeetStoreContainer" CdmEntityContainer="MARS_Meet_dbEntities">
+          <EntitySetMapping Name="mars_MEventEntries">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MEventEntries">
+              <MappingFragment StoreEntitySet="mars_MEventEntries">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="EventEntryId" ColumnName="EventEntryId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="SubEventId" ColumnName="SubEventId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SubText" ColumnName="SubText" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="ResultPrecision" ColumnName="ResultPrecision" />
+                <ScalarProperty Name="ResultLayout" ColumnName="ResultLayout" />
+                <ScalarProperty Name="ManualTimeAdjustment" ColumnName="ManualTimeAdjustment" />
+                <ScalarProperty Name="WindMeasure" ColumnName="WindMeasure" />
+                <ScalarProperty Name="WindMaxAllowed" ColumnName="WindMaxAllowed" />
+                <ScalarProperty Name="RoundNo" ColumnName="RoundNo" />
+                <ScalarProperty Name="HeatGroupNo" ColumnName="HeatGroupNo" />
+                <ScalarProperty Name="DayNo" ColumnName="DayNo" />
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Indoor" ColumnName="Indoor" />
+                <ScalarProperty Name="Outdoor" ColumnName="Outdoor" />
+                <ScalarProperty Name="UserDefined" ColumnName="UserDefined" />
+                <ScalarProperty Name="SortKeyEventId" ColumnName="SortKeyEventId" />
+                <ScalarProperty Name="RoundShorthand" ColumnName="RoundShorthand" />
+                <ScalarProperty Name="RoundText" ColumnName="RoundText" />
+                <ScalarProperty Name="NoOfRounds" ColumnName="NoOfRounds" />
+                <ScalarProperty Name="Started" ColumnName="Started" />
+                <ScalarProperty Name="Stopped" ColumnName="Stopped" />
+                <ScalarProperty Name="LiveResults" ColumnName="LiveResults" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_MGroups">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MGroups">
+              <MappingFragment StoreEntitySet="mars_MGroups">
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_MMarks">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MMarks">
+              <MappingFragment StoreEntitySet="mars_MMarks">
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="MarkId" ColumnName="MarkId" />
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="EventEntryId" ColumnName="EventEntryId" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="LaneNo" ColumnName="LaneNo" />
+                <ScalarProperty Name="SubLaneNo" ColumnName="SubLaneNo" />
+                <ScalarProperty Name="QualifyingMark" ColumnName="QualifyingMark" />
+                <ScalarProperty Name="SB" ColumnName="SB" />
+                <ScalarProperty Name="PB" ColumnName="PB" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="QualifyingEntry" ColumnName="QualifyingEntry" />
+                <ScalarProperty Name="LateEntryCode" ColumnName="LateEntryCode" />
+                <ScalarProperty Name="MarkCode" ColumnName="MarkCode" />
+                <ScalarProperty Name="Pos" ColumnName="Pos" />
+                <ScalarProperty Name="PosCode" ColumnName="PosCode" />
+                <ScalarProperty Name="MarkRemark" ColumnName="MarkRemark" />
+                <ScalarProperty Name="MarkText" ColumnName="MarkText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_MMeet">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MMeet">
+              <MappingFragment StoreEntitySet="mars_MMeet">
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Organizer" ColumnName="Organizer" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Stadium" ColumnName="Stadium" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="ManagerMail" ColumnName="ManagerMail" />
+                <ScalarProperty Name="ManagerPhone" ColumnName="ManagerPhone" />
+                <ScalarProperty Name="HomesiteUrl" ColumnName="HomesiteUrl" />
+                <ScalarProperty Name="StartEntryDate" ColumnName="StartEntryDate" />
+                <ScalarProperty Name="StopEntryDate" ColumnName="StopEntryDate" />
+                <ScalarProperty Name="VisibleCode" ColumnName="VisibleCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_MParticipants">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MParticipants">
+              <MappingFragment StoreEntitySet="mars_MParticipants">
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UsedName" ColumnName="UsedName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="YearOfBirth" ColumnName="YearOfBirth" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="DAFNo" ColumnName="DAFNo" />
+                <ScalarProperty Name="UserDefined" ColumnName="UserDefined" />
+                <ScalarProperty Name="BibNo" ColumnName="BibNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mars_MTeams">
+            <EntityTypeMapping TypeName="MARS.Meet.mars_MTeams">
+              <MappingFragment StoreEntitySet="mars_MTeams">
+                <ScalarProperty Name="MeetId" ColumnName="MeetId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name3" ColumnName="Name3" />
+                <ScalarProperty Name="Name6" ColumnName="Name6" />
+                <ScalarProperty Name="Name9" ColumnName="Name9" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="SortKey" ColumnName="SortKey" />
+                <ScalarProperty Name="DAFName" ColumnName="DAFName" />
+                <ScalarProperty Name="UserDefined" ColumnName="UserDefined" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
