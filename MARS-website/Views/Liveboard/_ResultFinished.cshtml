@@ -1,0 +1,119 @@
+﻿@model MARS.Web.Models.OneMeet
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th></th>
+
+        @if (Model.CurrentEvent.RoundNo < Model.CurrentEvent.NoOfRounds)
+        {
+            <th></th>
+        }
+
+        <th>Result</th>
+        <th>Name</th>
+        <th>Team</th>
+        @for (var i = 1; i <= Model.CurrentEvent.ResultList.NoInSerie; i++)
+        {
+            <th>
+                @i.ToString()
+            </th>
+        }
+        @if (Model.CurrentEvent.ResultList.JumpSchema != null && Model.CurrentEvent.ResultList.JumpSchema.Count > 0)
+        {
+            foreach (var h in Model.CurrentEvent.ResultList.JumpSchema)
+            {
+                <th>@h</th>
+            }
+        }
+    </tr>
+
+    @if (Model.CurrentEvent.ResultList.Summary != null && Model.CurrentEvent.ResultList.Summary.Count > 0)
+    {
+        if (Model.CurrentEvent.ResultList.SummaryHeader.Length > 0)
+        {
+            <tr><td colspan="5">@Html.DisplayFor(_ => Model.CurrentEvent.ResultList.SummaryHeader)</td></tr>
+        }
+
+        foreach (var p in Model.CurrentEvent.ResultList.Summary)
+        {
+            <tr>
+                <td>@Html.DisplayFor(_ => p.Position)</td>
+                <td>@Html.DisplayFor(_ => p.Comment)</td>
+
+                @if (Model.CurrentEvent.RoundNo < Model.CurrentEvent.NoOfRounds)
+                {
+                    <td>@Html.DisplayFor(_ => p.Qualified)</td>
+                }
+
+                <td>@Html.DisplayFor(_ => p.Result)</td>
+                <td>@Html.DisplayFor(_ => p.Name)</td>
+
+                @if (p.TeamId.Equals(Guid.Empty))
+                {
+                    <td>@Html.DisplayFor(_ => p.Team)</td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                    </td>
+                }
+
+                @if (p.Serie1 != null)
+                {
+                    foreach (var res in p.Serie1)
+                    {
+                        <td>@Html.DisplayFor(_ => res)</td>
+                    }
+                }
+            </tr>
+        }
+    }
+
+    @foreach (var h in Model.CurrentEvent.ResultList.Heats)
+    {
+        if (h.Header.Length > 0)
+        {
+            <tr><td colspan="5">@Html.DisplayFor(modelItem => h.Header)</td></tr>
+        }
+
+        if (h.Participants != null && h.Participants.Count > 0)
+        {
+            foreach (var p in h.Participants)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(_ => p.Position)</td>
+                    <td>@Html.DisplayFor(_ => p.Comment)</td>
+
+                    @if (Model.CurrentEvent.RoundNo < Model.CurrentEvent.NoOfRounds)
+                    {
+                        <td>@Html.DisplayFor(modelItem => p.Qualified)</td>
+                    }
+
+                    <td>@Html.DisplayFor(_ => p.Result)</td>
+                    <td>@Html.DisplayFor(_ => p.Name)</td>
+
+                    @if (p.TeamId.Equals(Guid.Empty))
+                    {
+                        <td>@Html.DisplayFor(_ => p.Team)</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                        </td>
+                    }
+
+                    @if (p.Serie1 != null)
+                    {
+                        foreach (var res in p.Serie1)
+                        {
+                            <td>@Html.DisplayFor(_ => res)</td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    }
+</table>

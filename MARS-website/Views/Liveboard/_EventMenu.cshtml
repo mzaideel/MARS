@@ -17,6 +17,12 @@
         }
     </div>
 
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Views", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-default" })
+        }
+    </div>
+
     @if (Model.NoOfDays > 1)
     {
         var text = Model.CurrentDay == 0 ? "All days" : String.Format("Day {0}", Model.CurrentDay);
@@ -76,5 +82,6 @@
             </ul>
         </div>
     }
-
 </div>
+
+<p>&nbsp;</p>

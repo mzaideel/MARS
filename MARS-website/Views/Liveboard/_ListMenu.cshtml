@@ -1,0 +1,106 @@
+﻿@model MARS.Web.Models.OneMeet
+
+<h2>
+    @Html.DisplayFor(model => model.Description)
+</h2>
+
+<div>
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Events", "Events", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-default" })
+        }
+    </div>
+
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Teams", "Teams", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-default" })
+        }
+    </div>
+
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Views", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-primary" })
+        }
+    </div>
+
+    @if (Model.NoOfDays > 1)
+    {
+        var text = Model.CurrentDay == 0 ? "All days" : String.Format("Day {0}", Model.CurrentDay);
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                @text
+                <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                @if (Model.CurrentDay != 0)
+                {
+                    <li>
+                        @Html.ActionLink("All days", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = 0, sortBy = Model.CurrentSortBy })
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.NoOfDays; i++)
+                {
+                    if (Model.CurrentDay != i)
+                    {
+                        <li>
+                            @Html.ActionLink(String.Format("Day {0}", i), "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = i, sortBy = Model.CurrentSortBy })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    @{var className = Model.CurrentGroupId == null ? "btn-primary" : "btn-default";}
+
+    <div class="btn-group">
+        @Html.ActionLink("ALL", "Lists", new { meetId = Model.MeetId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn " + className })
+    </div>
+
+    @foreach (var item in Model.Groups)
+    {
+        className = item.GroupId == Model.CurrentGroupId ? "btn-primary" : "btn-default";
+        <div class="btn-group">
+            @Html.ActionLink(item.GroupId, "Lists", new { meetId = Model.MeetId, groupId = item.GroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn " + className })
+        </div>
+    }
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Sort by
+            <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                @Html.ActionLink("Timeschedule", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = 0 })
+                @Html.ActionLink("Group - event", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = 1 })
+                @Html.ActionLink("Event - group", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = 2 })
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <div class="btn-group">
+            @Html.ActionLink("START LIST", "Lists", new { meetId = Model.MeetId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn btn-default" })
+        </div>
+
+        <div class="btn-group">
+            @Html.ActionLink("RESULTS", "Lists", new { meetId = Model.MeetId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn btn-default" })
+        </div>
+
+        <div class="btn-group">
+            @Html.ActionLink("MEDAL COMPETITION", "Lists", new { meetId = Model.MeetId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn btn-default" })
+        </div>
+
+        <div class="btn-group">
+            @Html.ActionLink("POINTS COMPETITION", "Lists", new { meetId = Model.MeetId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+
+</div>
+
+<p>&nbsp;</p>

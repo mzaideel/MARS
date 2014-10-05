@@ -171,6 +171,30 @@ namespace MARS.Web.Controllers
 			}
 		}
 
+		// GET: /Liveboard/Lists/
+		public ActionResult Lists(Guid meetId, ListType listType = ListType.None, string groupId = null, int dayNo = 0, int sortBy = 0)
+		{
+			using (MARS_Meet_dbEntities meetDb = new MARS_Meet_dbEntities())
+			{
+				meetDb.Database.Log = s => MyLogger.Log("Lists", s);
+
+				mars_MMeet meet = (from mars_Meet in meetDb.mars_MMeet where mars_Meet.MeetId == meetId select mars_Meet).SingleOrDefault();
+				if (meet == null)
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+				OneMeet oneMeet = createMeet(meet, Selection.Lists);
+				oneMeet.CurrentGroupId = groupId;
+				oneMeet.CurrentEventId = Guid.Empty;
+				oneMeet.CurrentDay = dayNo;
+
+				loadEvents(meetDb, oneMeet);
+
+				return View(oneMeet);
+			}
+		}
+
+
+
 		private OneMeet createMeet(mars_MMeet from, Selection selection)
 		{
 			return new OneMeet() { MeetId = from.MeetId, Description = from.Header, NoOfDays = from.Days, Selection = selection };

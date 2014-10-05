@@ -47,6 +47,12 @@
         }
     </div>
 
+    <div class="btn-group">
+        @{
+            @Html.ActionLink("Views", "Lists", new { meetId = Model.MeetId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay }, new { @class = "btn btn-default" })
+        }
+    </div>
+
     @if (Model.Selection == MARS.Web.Models.Selection.OneTeam)
     {
         if (Model.NoOfDays > 1)
@@ -110,5 +116,6 @@
             </ul>
         </div>
     }
-
 </div>
+
+<p>&nbsp;</p>

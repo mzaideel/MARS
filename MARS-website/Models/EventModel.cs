@@ -23,7 +23,9 @@ namespace MARS.Web.Models
 				};
 	}
 
-	public enum Selection { Events, OneEvent, Teams, OneTeam };
+	public enum Selection { Events, OneEvent, Teams, OneTeam, Lists };
+
+	public enum ListType { None, StartList, ResultFinished, ResultOngoing, MedalCompetition, PointsCompetition }
 
 	public class OneMeet
 	{
@@ -36,14 +38,14 @@ namespace MARS.Web.Models
 		public Guid CurrentEventId { get; set; }
 		public int CurrentDay { get; set; }
 		public int CurrentSortBy { get; set; }
+		public OneTeam CurrentTeam { get; set; }
+		public OneEvent CurrentEvent { get; set; }
 		public int NoOfDays { get; set; }
 
 		public List<OneGroup> Groups { get; set; }
 		public List<OneEvent> Events { get; set; }
-
 		public List<OneTeam> Teams { get; set; }
 		public List<List<OneTeam>> TeamRows { get; set; }
-		public OneTeam CurrentTeam { get; set; }
 
 		public MedalCompetition MedalCompetition { get; set; }
 		public PointsCompetition PointsCompetition { get; set; }

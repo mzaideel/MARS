@@ -1,0 +1,49 @@
+﻿@model MARS.Web.Models.OneMeet
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>BibNo</th>
+        <th></th>
+        <th>SB</th>
+        <th>PB</th>
+        <th>Name</th>
+        <th>YOB</th>
+        <th>Team</th>
+    </tr>
+
+    @foreach (var h in Model.CurrentEvent.StartList.Heats)
+    {
+        if (h.Header.Length > 0)
+        {
+            <tr><td colspan="8">@Html.DisplayFor(modelItem => h.Header)</td></tr>
+        }
+
+        if (h.Participants != null && h.Participants.Count > 0)
+        {
+            foreach (var p in h.Participants)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(_ => p.OrderNo)</td>
+                    <td>@Html.DisplayFor(_ => p.BibNo)</td>
+                    <td>@Html.DisplayFor(_ => p.Comment)</td>
+                    <td>@Html.DisplayFor(_ => p.SB)</td>
+                    <td>@Html.DisplayFor(_ => p.PB)</td>
+                    <td>@Html.DisplayFor(_ => p.Name)</td>
+                    <td>@Html.DisplayFor(_ => p.YOB)</td>
+
+                    @if (p.TeamId.Equals(Guid.Empty))
+                    {
+                        <td>@Html.DisplayFor(_ => p.Team)</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink(p.Team, "Team", new { meetId = Model.MeetId, teamId = p.TeamId, groupId = Model.CurrentGroupId, dayNo = Model.CurrentDay, sortBy = Model.CurrentSortBy })
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    }
+</table>

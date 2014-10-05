@@ -176,6 +176,11 @@
     <Content Include="Views\Liveboard\Team.cshtml" />
     <Content Include="Views\Liveboard\Teams.cshtml" />
     <Content Include="Views\Liveboard\_TeamMenu.cshtml" />
+    <Content Include="Views\Liveboard\_ListMenu.cshtml" />
+    <Content Include="Views\Liveboard\Lists.cshtml" />
+    <Content Include="Views\Liveboard\_StartList.cshtml" />
+    <Content Include="Views\Liveboard\_ResultFinished.cshtml" />
+    <Content Include="Views\Liveboard\_ResultOngoing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MARS-meet\MARS-meet.csproj">
